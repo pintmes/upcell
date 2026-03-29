@@ -12,13 +12,14 @@ export const MONTHLY_PLAN = "UpsellPro Monthly" as const;
 export const LAUNCH_PLAN = "UpsellPro Launch" as const;
 const LAUNCH_SHOP_LIMIT = 20;
 const BILLING_TRIAL_DAYS = 7;
+const APP_URL = resolveAppUrl();
 
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,
   apiSecretKey: process.env.SHOPIFY_API_SECRET || "",
   apiVersion: ApiVersion.October25,
   scopes: process.env.SCOPES?.split(","),
-  appUrl: process.env.SHOPIFY_APP_URL || "",
+  appUrl: APP_URL,
   authPathPrefix: "/auth",
   sessionStorage: new PrismaSessionStorage(prisma),
   distribution: AppDistribution.AppStore,
@@ -90,7 +91,7 @@ export async function ensureStorefrontUpsellScriptTag(admin: {
     options?: { variables?: Record<string, unknown> },
   ) => Promise<{ json: () => Promise<unknown> }>;
 }) {
-  const baseUrl = process.env.SHOPIFY_APP_URL || "";
+  const baseUrl = APP_URL;
   const scriptUrl = `${baseUrl}${STOREFRONT_UPSELL_SCRIPT_PATH}?v=${STOREFRONT_UPSELL_SCRIPT_VERSION}`;
   if (!scriptUrl.startsWith("https://")) return;
 
@@ -165,4 +166,14 @@ export async function ensureStorefrontUpsellScriptTag(admin: {
       },
     },
   );
+}
+
+function resolveAppUrl() {
+  const raw =
+    process.env.SHOPIFY_APP_URL ||
+    process.env.RENDER_EXTERNAL_URL ||
+    process.env.URL ||
+    "";
+  const normalized = raw.trim().replace(/\/+$/, "");
+  return normalized;
 }
