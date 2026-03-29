@@ -14,8 +14,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { billing, session } = await authenticate.admin(request);
   const isProduction = process.env.NODE_ENV === "production";
   const isBillingTestMode = process.env.SHOPIFY_BILLING_TEST_MODE === "true";
+  const shouldEnforceBilling = process.env.SHOPIFY_ENFORCE_BILLING === "true";
 
-  if (isProduction) {
+  if (isProduction && shouldEnforceBilling) {
     const preferredPlan = await getPreferredPlanForShop(session.shop);
 
     await billing.require({
