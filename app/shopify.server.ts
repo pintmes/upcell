@@ -1,4 +1,5 @@
 import "@shopify/shopify-app-react-router/adapters/node";
+import fs from "node:fs";
 import {
   ApiVersion,
   AppDistribution,
@@ -12,13 +13,16 @@ export const MONTHLY_PLAN = "UpsellPro Monthly" as const;
 export const LAUNCH_PLAN = "UpsellPro Launch" as const;
 const LAUNCH_SHOP_LIMIT = 20;
 const BILLING_TRIAL_DAYS = 7;
+const SHOPIFY_API_KEY = readConfigValue("SHOPIFY_API_KEY");
+const SHOPIFY_API_SECRET = readConfigValue("SHOPIFY_API_SECRET");
+const SHOPIFY_SCOPES = readConfigValue("SCOPES");
 const APP_URL = resolveAppUrl();
 
 const shopify = shopifyApp({
-  apiKey: process.env.SHOPIFY_API_KEY,
-  apiSecretKey: process.env.SHOPIFY_API_SECRET || "",
+  apiKey: SHOPIFY_API_KEY,
+  apiSecretKey: SHOPIFY_API_SECRET,
   apiVersion: ApiVersion.October25,
-  scopes: process.env.SCOPES?.split(","),
+  scopes: SHOPIFY_SCOPES?.split(","),
   appUrl: APP_URL,
   authPathPrefix: "/auth",
   sessionStorage: new PrismaSessionStorage(prisma),
@@ -170,10 +174,28 @@ export async function ensureStorefrontUpsellScriptTag(admin: {
 
 function resolveAppUrl() {
   const raw =
-    process.env.SHOPIFY_APP_URL ||
+    readConfigValue("SHOPIFY_APP_URL") ||
     process.env.RENDER_EXTERNAL_URL ||
     process.env.URL ||
     "";
   const normalized = raw.trim().replace(/\/+$/, "");
   return normalized;
+}
+
+function readConfigValue(key: string) {
+  const fromEnv = process.env[key];
+  if (typeof fromEnv === "string" && fromEnv.trim()) return fromEnv.trim();
+
+  const secretPaths = [`/etc/secrets/${key}`, `${process.cwd()}/${key}`];
+  for (const filePath of secretPaths) {
+    try {
+      if (!fs.existsSync(filePath)) continue;
+      const value = fs.readFileSync(filePath, "utf8").trim();
+      if (value) return value;
+    } catch {
+      // noop - continue to other fallbacks
+    }
+  }
+
+  return "";
 }
