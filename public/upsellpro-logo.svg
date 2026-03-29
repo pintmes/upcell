@@ -1,0 +1,25 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+  </defs>
+  <rect x="24" y="24" width="464" height="464" rx="96" fill="url(#g)" />
+  <circle cx="256" cy="256" r="132" fill="#ffffff" fill-opacity="0.12" />
+  <path
+    d="M154 276c0-52 42-94 94-94 29 0 54 13 71 34l-30 25c-10-12-24-19-41-19-30 0-54 24-54 54s24 54 54 54c26 0 46-18 52-41h-58v-34h98c1 6 1 11 1 17 0 57-39 98-95 98-52 0-94-42-94-94z"
+    fill="#ffffff"
+  />
+  <text
+    x="256"
+    y="430"
+    text-anchor="middle"
+    fill="#ffffff"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="40"
+    font-weight="700"
+  >
+    UPSELLPRO
+  </text>
+</svg>

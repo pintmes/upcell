@@ -1,0 +1,25 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#eef2ff" />
+  <rect x="80" y="60" width="1040" height="600" rx="28" fill="#ffffff" stroke="#c7d2fe" />
+  <text x="130" y="130" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">
+    Step 2 - Customize and Save
+  </text>
+  <rect x="130" y="180" width="500" height="430" rx="20" fill="#f9fafb" stroke="#d1d5db" />
+  <text x="165" y="230" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="24">Discount %</text>
+  <rect x="165" y="250" width="430" height="44" rx="8" fill="#ffffff" stroke="#d1d5db" />
+  <text x="165" y="330" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="24">Popup texts</text>
+  <rect x="165" y="350" width="430" height="44" rx="8" fill="#ffffff" stroke="#d1d5db" />
+  <rect x="165" y="408" width="430" height="44" rx="8" fill="#ffffff" stroke="#d1d5db" />
+  <text x="165" y="490" fill="#374151" font-family="Arial, Helvetica, sans-serif" font-size="24">Colors</text>
+  <rect x="165" y="510" width="120" height="60" rx="10" fill="#111827" />
+  <rect x="305" y="510" width="120" height="60" rx="10" fill="#ffffff" stroke="#d1d5db" />
+  <rect x="680" y="200" width="360" height="380" rx="20" fill="#ffffff" stroke="#d1d5db" />
+  <text x="720" y="250" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">
+    Upsell Preview
+  </text>
+  <rect x="720" y="280" width="280" height="160" rx="12" fill="#f3f4f6" />
+  <rect x="720" y="470" width="280" height="56" rx="10" fill="#111827" />
+  <text x="798" y="506" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">
+    Save
+  </text>
+</svg>

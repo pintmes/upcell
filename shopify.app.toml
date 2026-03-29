@@ -1,0 +1,61 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "ec71e160e2cf846d21bc881928cfcb0d"
+name = "UpsellPro"
+application_url = "https://upcell.onrender.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+
+[webhooks]
+api_version = "2026-04"
+
+# Pub/Sub setup:
+# 1) Create topic in GCP
+# 2) Grant Publisher role to:
+#    delivery@shopify-pubsub-webhooks.iam.gserviceaccount.com
+# 3) Replace <GCP_PROJECT_ID> and <PUBSUB_TOPIC_ID> below
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "/webhooks/app/uninstalled"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/scopes_update" ]
+  uri = "/webhooks/app/scopes_update"
+
+  [[webhooks.subscriptions]]
+  topics = [ "orders/create" ]
+  uri = "pubsub://loc365-18bd8:shopify-webhooks"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_discounts,read_orders,read_products,read_script_tags,write_discounts,write_metaobject_definitions,write_metaobjects,write_orders,write_products,write_script_tags"
+
+[auth]
+redirect_urls = [ "https://upcell.onrender.com/auth/callback" ]
+
+[product.metafields.app.demo_info]
+type = "single_line_text_field"
+name = "Demo Source Info"
+description = "Tracks products created by the Shopify app template for development"
+
+  [product.metafields.app.demo_info.access]
+  admin = "merchant_read_write"
+
+[metaobjects.app.example]
+name = "Example"
+description = "An example metaobject definition created by this template"
+
+  [metaobjects.app.example.access]
+  admin = "merchant_read_write"
+
+[metaobjects.app.example.fields.title]
+name = "Title"
+type = "single_line_text_field"
+required = true
+
+[metaobjects.app.example.fields.description]
+name = "Description"
+type = "multi_line_text_field"
